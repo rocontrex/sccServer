@@ -15,8 +15,8 @@ It's free!
 
 ## Getting Started
 
-### virtualenv
-```
+### Virtualenv
+
 Create a new virtualenv
 ```
 python -m venv python3
@@ -26,7 +26,7 @@ Start the virtualenv created
 CD python3
 CD Scripts
 activate
-
+```
 ### Prerequisites
 
 To run this project in the development mode, you'll need to have a basic environment with Python 3 installed. To use the database, you'll need to have MySql Server installed and running on your machine.
