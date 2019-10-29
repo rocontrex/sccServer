@@ -95,3 +95,62 @@ If you need see the querry thay will be executed, run:
 ```
 $python manage.py sqlmigrate employee 001
 ```
+
+### Adding Django-Rest-Framework
+First we need to install the framework
+```
+$pip install djangorestframework
+```
+Then we update the settings.py file for the rest framework
+```
+INSTALLED_APPS = [
+ ‘django.contrib.admin’,
+ ‘django.contrib.auth’,
+ ‘django.contrib.contenttypes’,
+ ‘django.contrib.sessions’,
+ ‘django.contrib.messages’,
+ ‘django.contrib.staticfiles’,
+ ‘rest_framework’
+]
+```
+Finally we will create the serializers.py and viewsets.py files inside the app folder
+###### Serializers.py
+```
+from rest_framework import serializers
+from .models import Example
+class ExampleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Example
+        fields = '__all__'
+```
+
+###### Viewsets.py
+```
+from rest_framework import viewsets
+from .models import Example
+from .serializers import ExampleSerializer
+class ExampleViewSet(viewsets.ModelViewSet):
+    queryset = Example.objects.all()
+    serializer_class = ExampleSerialize
+```
+
+Then we create a file routers.py inside the project folder where there is settings.py and urls.py file is present.
+```
+from rest_framework import routers
+from example.viewsets import ExampleViewSet
+router = routers.DefaultRouter()
+router.register(r’example’, ExampleViewSet)
+```
+
+Now we import this routers file inside the urls.py which contain all the url routes of our app.
+```
+from django.contrib import admin
+from django.urls import path, include
+from .routers import router
+urlpatterns = [
+ path(‘admin/’, admin.site.urls),
+ path(‘api/’, include(router.urls))
+]
+```
+We have imported our router file to include all urls built inside the routers file. We have added the api/ keyword just to seperate the api urls now they will called from /api/example.
+
