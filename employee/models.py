@@ -51,13 +51,12 @@ class Employee(models.Model):
         on_delete=models.CASCADE
     )
 
-    objects = models.Manager()
-
     r_team = models.ForeignKey(
         Teams,
         on_delete=models.DO_NOTHING
     )
 
+    objects = models.Manager()
 
     def __str__(self):
         return str(self.id)
